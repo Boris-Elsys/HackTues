@@ -1,8 +1,9 @@
 import pygame
 import time
 import random
-pygame.init ()
+import sys
 
+pygame.init ()
 
 CAPTION = "Earth Savers"
 ICON = pygame.transform.scale(pygame.image.load('./Assets/GREAT.png'), (50, 50))
@@ -14,6 +15,98 @@ pygame.display.set_icon(ICON)
 pygame.display.set_caption(CAPTION)
 
 clock = pygame.time.Clock()
+click = False
+
+def main_menu():
+
+
+    music = pygame.mixer.music.load('./music/Chill.mp3')
+    pygame.mixer.music.play(-1)
+
+    main_menuIMG = pygame.image.load("./Assets/main_menu.png")
+
+
+    while True:
+
+        screen.fill((0, 0, 0))
+
+        mx, my = pygame.mouse.get_pos()
+
+        button_1 = pygame.Rect(200, 700, 200, 50)
+        button_2 = pygame.Rect(800, 700, 200, 50)
+
+        if button_1.collidepoint((mx, my)):
+            if click:
+                main()
+        if button_2.collidepoint((mx, my)):
+            if click:
+                difficulty()
+        pygame.draw.rect(screen, (150, 150, 150), button_1)
+        pygame.draw.rect(screen, (150, 150, 150), button_2)
+
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+        pygame.display.update()
+        clock.tick(60)
+
+   # run = True
+    #while run:
+    #    screen.blit(main_menuIMG, (0, 0))
+     #   pygame.display.update()
+     #   for event in pygame.event.get():
+      #      if event.type == pygame.QUIT:
+        #        run = False
+        #    if event.type == pygame.MOUSEBUTTONDOWN:
+       #         main()
+   # pygame.quit()
+
+def difficulty():
+    running = True
+    while running:
+        screen.fill((0, 0, 0))
+
+        mx, my = pygame.mouse.get_pos()
+
+        button_1 = pygame.Rect(200, 700, 200, 50)
+        button_2 = pygame.Rect(510, 700, 200, 50)
+        button_3 = pygame.Rect(800, 700, 200, 50)
+
+        if button_1.collidepoint((mx, my)):
+            if click:
+                easy()
+        if button_2.collidepoint((mx, my)):
+            if click:
+                normal()
+        if button_3.collidepoint((mx, my)):
+            if click:
+                hard()
+
+        pygame.draw.rect(screen, (150, 150, 150), button_1)
+        pygame.draw.rect(screen, (150, 150, 150), button_2)
+        pygame.draw.rect(screen, (150, 150, 150), button_3)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+        pygame.display.update()
+        clock.tick(60)
+
 
 
 
@@ -24,23 +117,7 @@ class thing:
         self.Bin = Bin
 
         
-def main_menu():
-    music = pygame.mixer.music.load('./music/Chill.mp3')
-    pygame.mixer.music.play(-1)
-    
-    main_menuIMG = pygame.image.load("./Assets/main_menu.png")
-    
-    run = True
-    while run:
-        screen.blit(main_menuIMG, (0,0))
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                main()
-    pygame.quit()
-        
+
 def main():
     
     TrashSpeed = 5
